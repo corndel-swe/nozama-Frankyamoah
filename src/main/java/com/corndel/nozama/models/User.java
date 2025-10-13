@@ -17,6 +17,8 @@ public class User {
     this.avatar = avatar;
   }
 
+
+
   public Integer getId() {
     return id;
   }
