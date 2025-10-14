@@ -39,7 +39,6 @@ public class UserRepository {
             var statement = connection.createStatement();
             var resultSet = statement.executeQuery(query);) {
 
-
       var username = resultSet.getString("username");
       var firstName = resultSet.getString("firstName");
       var lastName = resultSet.getString("lastName");
