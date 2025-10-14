@@ -11,8 +11,8 @@ public class UserRepository {
     var query = "SELECT id, username, firstName, lastName, email, avatar FROM users";
 
     try (var con = DB.getConnection();
-        var stmt = con.createStatement();
-        var rs = stmt.executeQuery(query);) {
+         var stmt = con.createStatement();
+         var rs = stmt.executeQuery(query);) {
 
       var users = new ArrayList<User>();
       while (rs.next()) {
@@ -51,4 +51,40 @@ public class UserRepository {
       return foundUser;
     }
   }
+
+  public static User createUser(User user) throws SQLException {
+
+    var query = String.format("INSERT INTO users (username, firstName, lastName, email, avatar) VALUES (%s, %s, %s, %s, %s)",
+            user.getUsername(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAvatar());
+
+    try (
+            var connection = DB.getConnection();
+            var statement = connection.createStatement();
+            var resultSet = statement.executeQuery(query);) {
+
+
+        resultSet.getString("username");
+        resultSet.getString("firstName");
+        resultSet.getString("lastName");
+        resultSet.getString("email");
+        resultSet.getString("avatar");
+
+
+      System.out.println("New user created");
+
+      return user;
+
+    }
+  }
+
+  public static void main(String[] args) throws SQLException {
+    User newUser = new User("jackP", "J", "Potts",
+            "jpotts@gmail.com", "https//kmart");
+
+    createUser(newUser);
+
+    System.out.println(newUser);
+
+  }
 }
+

@@ -17,7 +17,13 @@ public class User {
     this.avatar = avatar;
   }
 
-
+  public User(String username, String firstName, String lastName, String email, String avatar) {
+    this.username = username;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.avatar = avatar;
+  }
 
   public Integer getId() {
     return id;
