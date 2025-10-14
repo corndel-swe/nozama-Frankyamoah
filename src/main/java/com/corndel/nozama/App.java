@@ -27,6 +27,7 @@ public class App {
           var user = UserRepository.findById(id);
           ctx.status(HttpStatus.IM_A_TEAPOT).json(user);
         });
+
   }
 
   public Javalin javalinApp() {

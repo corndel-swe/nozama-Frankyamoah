@@ -28,6 +28,15 @@ public class ProductRepository {
             return Products;
         }
     }
+
+    public static void main(String[] args) {
+        try {
+            List<Product> result = ProductRepository.findAll();
+            System.out.println(result);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
 
