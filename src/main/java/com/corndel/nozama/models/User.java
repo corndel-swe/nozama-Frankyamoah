@@ -29,7 +29,11 @@ public class User {
     return id;
   }
 
-  public String getUsername() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
     return username;
   }
 
@@ -68,4 +72,16 @@ public class User {
   public void setAvatar(String avatar) {
     this.avatar = avatar;
   }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", avatar='" + avatar + '\'' +
+                '}';
+    }
 }
