@@ -111,6 +111,12 @@ public class UserRepository {
 
         System.out.println(newUser);
 
+      var username = resultSet.getString("username");
+      var firstName = resultSet.getString("firstName");
+      var lastName = resultSet.getString("lastName");
+      var email = resultSet.getString("email");
+      var avatar = resultSet.getString("avatar");
+      var foundUser = (new User(id, username, firstName, lastName, email, avatar));
 
 //        System.out.println(findAll());
 
