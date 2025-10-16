@@ -7,22 +7,28 @@ public class User {
   private String lastName;
   private String email;
   private String avatar;
+  private String password;
 
-  public User(Integer id, String username, String firstName, String lastName, String email, String avatar) {
+  public User(Integer id, String username, String firstName, String lastName, String email, String avatar, String password) {
     this.id = id;
     this.username = username;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.avatar = avatar;
+    this.password = password;
   }
 
-  public User(String username, String firstName, String lastName, String email, String avatar) {
+  public User(String username, String firstName, String lastName, String email, String avatar, String password) {
     this.username = username;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.avatar = avatar;
+    this.password = password;
+  }
+
+  public User() {
   }
 
   public Integer getId() {
@@ -73,7 +79,15 @@ public class User {
     this.avatar = avatar;
   }
 
-    @Override
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
@@ -82,6 +96,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

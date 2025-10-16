@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserRepository {
     public static List<User> findAll() throws SQLException {
-        var query = "SELECT id, username, firstName, lastName, email, avatar FROM users";
+        var query = "SELECT id, username, firstName, lastName, email, avatar, password FROM users";
 
         try (var con = DB.getConnection();
              var stmt = con.createStatement();
@@ -25,8 +25,9 @@ public class UserRepository {
                 var lastName = rs.getString("lastName");
                 var email = rs.getString("email");
                 var avatar = rs.getString("avatar");
+                var password = rs.getString("password");
 
-                users.add(new User(id, username, firstName, lastName, email, avatar));
+                users.add(new User(id, username, firstName, lastName, email, avatar, password));
             }
 
             return users;
@@ -35,7 +36,7 @@ public class UserRepository {
 
     public static User findById(int id) throws SQLException {
         // TODO: finish this method
-        var query = "SELECT id, username, firstName, lastName, email, avatar FROM users WHERE id =" + id;
+        var query = "SELECT id, username, firstName, lastName, email, avatar, password FROM users WHERE id =" + id;
 
         try (
                 var connection = DB.getConnection();
@@ -48,7 +49,8 @@ public class UserRepository {
             var lastName = resultSet.getString("lastName");
             var email = resultSet.getString("email");
             var avatar = resultSet.getString("avatar");
-            var foundUser = (new User(id, username, firstName, lastName, email, avatar));
+            var password = resultSet.getString("password");
+            var foundUser = (new User(username, firstName, lastName, email, avatar, password));
 
 
             return foundUser;
@@ -60,7 +62,7 @@ public class UserRepository {
 //    var query = String.format("INSERT INTO users (username, firstName, lastName, email, avatar) VALUES (%s, %s, %s, %s, %s)",
 //            user.getUsername(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAvatar());
 
-        String query = "INSERT INTO users(username, firstName, lastName, email, avatar) VALUES(?, ?, ?, ?, ?) RETURNING *";
+        String query = "INSERT INTO users(username, firstName, lastName, email, avatar, password) VALUES(?, ?, ?, ?, ?, ?) RETURNING *";
 
         try (
                 Connection connection = DB.getConnection();
@@ -72,6 +74,7 @@ public class UserRepository {
             preparedStatement.setString(3, user.getLastName());
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getAvatar());
+            preparedStatement.setString(6, user.getPassword());
 
             try (var resultSet = preparedStatement.executeQuery()) {
 
@@ -85,8 +88,10 @@ public class UserRepository {
 //                String lastName = resultSet.getString("lastName");
 //                String email = resultSet.getString("email");
 //                String avatar = resultSet.getString("avatar");
+//                String password = resultSet.getString("password")
 
                 user.setId(id);
+                user.setPassword(null);
 
             }
 
@@ -100,7 +105,7 @@ public class UserRepository {
 
     public static void main(String[] args) throws SQLException {
         User newUser = new User("jackP", "J", "Potts",
-                "jpotts@gmail.com", "https//kmart");
+                "jpotts@gmail.com", "https//kmart","password");
 
         createUser(newUser);
 
