@@ -29,7 +29,9 @@ class CounterController {
   public static void getCounter(Context ctx) {
     // TODO
     int currentCount = D3E1.counter.getCount();
-    ctx.json(Map.of("count", currentCount));
+    // MAP
+//    ctx.json(Map.of("count", currentCount));
+    ctx.json(D3E1.counter);
   }
 
   /**
