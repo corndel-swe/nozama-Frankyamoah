@@ -1,5 +1,6 @@
 package com.corndel.nozama;
 
+import com.corndel.nozama.models.User;
 import com.corndel.nozama.repositories.ProductRepository;
 import com.corndel.nozama.repositories.UserRepository;
 import io.javalin.Javalin;
@@ -28,6 +29,17 @@ public class App {
           var user = UserRepository.findById(id);
           ctx.status(HttpStatus.IM_A_TEAPOT).json(user);
         });
+
+    app.post(
+            "/users",
+            ctx -> {
+                User body = ctx.bodyAsClass(User.class);
+                //System.out.println(body);
+                User newUser = UserRepository.createUser(body);
+                ctx.status(201);
+                ctx.json(newUser);
+            }
+    );
     app.get(
             "/products",
             ctx ->{
