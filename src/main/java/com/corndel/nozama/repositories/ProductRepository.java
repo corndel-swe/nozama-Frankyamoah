@@ -55,7 +55,8 @@ public class ProductRepository {
 
     public static void main(String[] args) {
         try {
-            System.out.println(findByID(8));
+            List<Product> result = ProductRepository.findAll();
+            System.out.println(result);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
