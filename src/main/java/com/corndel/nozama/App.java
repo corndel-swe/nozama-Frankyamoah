@@ -1,5 +1,6 @@
 package com.corndel.nozama;
 
+import com.corndel.nozama.models.Product;
 import com.corndel.nozama.models.User;
 import com.corndel.nozama.repositories.ProductRepository;
 import com.corndel.nozama.repositories.UserRepository;
@@ -60,6 +61,7 @@ public class App {
                  assert product != null;
                  ctx.status(200).json(product);
              }
+
      );
   }
 

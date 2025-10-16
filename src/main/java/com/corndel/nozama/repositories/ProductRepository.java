@@ -2,6 +2,7 @@ package com.corndel.nozama.repositories;
 
 import com.corndel.nozama.DB;
 import com.corndel.nozama.models.Product;
+import io.javalin.util.ReflectionUtilKt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -53,13 +54,29 @@ public class ProductRepository {
         }
     }
 
-    public static void main(String[] args) {
-        try {
-            List<Product> result = ProductRepository.findAll();
-            System.out.println(result);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+    public static Product createProduct(String name, String description, int price, int stockQuantity, String imageURL) throws SQLException {
+        String query = "INSERT into Products(name, description, price, stockQuantity, imageURL) VALUES (?, ?, ?, ?, ?)";
+        try (
+                Connection connection = DB.getConnection();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, name);
+            statement.setString(2, description);
+            statement.setInt(3, price);
+            statement.setInt(4, stockQuantity);
+            statement.setString(5, imageURL);
+            statement.executeQuery(); // Executes the insert into the database
+
+            // Lastly get the generated id from the database
+            ResultSet genID = statement.getGeneratedKeys();
+            int id = 0;
+            if (genID.next()) {
+                id = genID.getInt(1);
+            }
+            return new Product(id, name, description, price, stockQuantity, imageURL);
         }
+    }
+    public static void main(String[] args) {
+
     }
 }
 
