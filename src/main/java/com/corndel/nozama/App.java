@@ -60,9 +60,22 @@ public class App {
                  var product = ProductRepository.findByID(id);
                  assert product != null;
                  ctx.status(200).json(product);
-             }
-
-     );
+             });
+      app.post(
+              "/products",
+              ctx -> {
+                  Product body = ctx.bodyAsClass(Product.class);
+                  Product newProduct = ProductRepository.createProduct(
+                          body.getName(),
+                          body.getDescription(),
+                          body.getPrice(),
+                          body.getStockQuantity(),
+                          body.getImageURL()
+                  );
+                  ctx.status(201);
+                  ctx.json(newProduct);
+              }
+      );
   }
 
   public Javalin javalinApp() {

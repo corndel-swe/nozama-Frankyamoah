@@ -64,7 +64,7 @@ public class ProductRepository {
             statement.setInt(3, price);
             statement.setInt(4, stockQuantity);
             statement.setString(5, imageURL);
-            statement.executeQuery(); // Executes the insert into the database
+            statement.executeUpdate(); // Executes the insert into the database
 
             // Lastly get the generated id from the database
             ResultSet genID = statement.getGeneratedKeys();
@@ -78,6 +78,8 @@ public class ProductRepository {
     public static void main(String[] args) {
 
     }
+
+
 }
 
 
