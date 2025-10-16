@@ -33,9 +33,16 @@ public class App {
             ctx ->{
                 ctx.json(ProductRepository.findAll());
                 ctx.status(200);
-            }
-    );
-
+            });
+     app.get(
+             "/products/{productId}",
+             ctx -> {
+                 var id = Integer.parseInt(ctx.pathParam("productId"));
+                 var product = ProductRepository.findByID(id);
+                 assert product != null;
+                 ctx.status(200).json(product);
+             }
+     );
   }
 
   public Javalin javalinApp() {
