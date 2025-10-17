@@ -55,6 +55,12 @@ public class App {
                  ctx.status(200).json(product);
              }
      );
+
+     app.delete("/users/{userId}", ctx -> {
+          var id = Integer.parseInt(ctx.pathParam("userId"));
+          UserRepository.deleteById(id);
+      });
+
   }
 
   public Javalin javalinApp() {

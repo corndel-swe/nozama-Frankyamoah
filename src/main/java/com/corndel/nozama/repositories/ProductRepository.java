@@ -53,6 +53,11 @@ public class ProductRepository {
         }
     }
 
+    public static Product findByCategory(int id) {
+        String query = "SELECT * FROM product_categories"
+
+    }
+
     public static void main(String[] args) {
         try {
             List<Product> result = ProductRepository.findAll();
