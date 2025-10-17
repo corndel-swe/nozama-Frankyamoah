@@ -21,12 +21,26 @@ public class D2E2 {
         "/sumup",
         ctx -> {
           // TODO:
+            var num = ctx.queryParam("n") != null
+                    ? Integer.parseInt(ctx.queryParam("n"))
+                    : 0;
+            var total = 0;
+            for (int i = 0; i <= num; i++) {
+                total += i;
+            }
+            var result = String.valueOf(total);
+            ctx.result(result);
         });
 
     app.get(
         "/multiply/{x}/{y}",
         ctx -> {
+            var x = Integer.parseInt(ctx.pathParam("x"));
+            var y = Integer.parseInt(ctx.pathParam("y"));
+            var product = String.valueOf(x * y);
           // TODO
+            ctx.result(product);
+
         });
 
     return app;

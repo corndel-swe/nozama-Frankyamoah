@@ -1,5 +1,7 @@
 package com.corndel.nozama;
 
+import com.corndel.nozama.models.User;
+import com.corndel.nozama.repositories.ProductRepository;
 import com.corndel.nozama.repositories.UserRepository;
 import io.javalin.Javalin;
 import io.javalin.http.HttpStatus;
@@ -33,6 +35,32 @@ public class App {
         ctx.status(200);
         ctx.result("Deleted User");
     });
+
+    app.post(
+            "/users",
+            ctx -> {
+                User body = ctx.bodyAsClass(User.class);
+                //System.out.println(body);
+                User newUser = UserRepository.createUser(body);
+                ctx.status(201);
+                ctx.json(newUser);
+            }
+    );
+    app.get(
+            "/products",
+            ctx ->{
+                ctx.json(ProductRepository.findAll());
+                ctx.status(200);
+            });
+     app.get(
+             "/products/{productId}",
+             ctx -> {
+                 var id = Integer.parseInt(ctx.pathParam("productId"));
+                 var product = ProductRepository.findByID(id);
+                 assert product != null;
+                 ctx.status(200).json(product);
+             }
+     );
   }
 
   public Javalin javalinApp() {
