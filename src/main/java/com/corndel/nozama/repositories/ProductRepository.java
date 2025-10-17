@@ -10,14 +10,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ProductRepository {
     public static List<Product> findAll() throws SQLException {
         var query = "SELECT id, name, description, price, stockQuantity, imageURL FROM Products";
-        try(
+        try (
                 var connection = DB.getConnection();
                 var statement = connection.createStatement();
                 var resultSet = statement.executeQuery(query);
-                ) {
+        ) {
             var Products = new ArrayList<Product>();
             while (resultSet.next()) {
                 var id = resultSet.getInt("id");
@@ -54,7 +55,13 @@ public class ProductRepository {
     }
 
     public static Product findByCategory(int id) {
-        String query = "SELECT * FROM product_categories"
+        String query = "SELECT * FROM products " +
+                "INNER JOIN product_categories ON products.id = product_categories.productId " +
+                "WHERE product_categories.categoryId = ?";
+
+        
+
+        return null;
 
     }
 
