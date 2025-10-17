@@ -2,6 +2,8 @@ package com.corndel.nozama.repositories;
 
 import com.corndel.nozama.DB;
 import com.corndel.nozama.models.User;
+
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,5 +52,21 @@ public class UserRepository {
 
       return foundUser;
     }
+  }
+  public static void deleteById(int id) throws SQLException {
+      var query = "DELETE FROM users WHERE id = ?";
+
+      try (
+              var connection = DB.getConnection();
+              var statement = connection.prepareStatement(query)
+      ) {
+          statement.setInt(1, id);
+          statement.executeUpdate();
+
+      }
+  }
+
+  public static void main(String[] args) {
+
   }
 }
