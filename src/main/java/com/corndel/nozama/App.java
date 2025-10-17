@@ -30,6 +30,8 @@ public class App {
     app.delete("/users/{userId}", ctx -> {
         var id = Integer.parseInt(ctx.pathParam("userId"));
         UserRepository.deleteById(id);
+        ctx.status(200);
+        ctx.result("Deleted User");
     });
   }
 
