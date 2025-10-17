@@ -29,6 +29,12 @@ public class App {
           var user = UserRepository.findById(id);
           ctx.status(HttpStatus.IM_A_TEAPOT).json(user);
         });
+    app.delete("/users/{userId}", ctx -> {
+        var id = Integer.parseInt(ctx.pathParam("userId"));
+        UserRepository.deleteById(id);
+        ctx.status(200);
+        ctx.result("Deleted User");
+    });
 
     app.post(
             "/users",
