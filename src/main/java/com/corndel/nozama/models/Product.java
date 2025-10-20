@@ -18,6 +18,18 @@ public class Product {
         this.stockQuantity = stockQuantity;
         this.imageURL = imageURL;
     }
+
+    public Product(String name, String description, Integer price, Integer stockQuantity, String imageURL) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.imageURL = imageURL;
+    }
+
+    public Product() {
+    }
+
     // Getter for Id
     public Integer getId() {
         return id;

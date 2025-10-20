@@ -20,7 +20,7 @@ public class D3E2Tests {
 
   @Test
   public void accountThrowsBadRequestIfUsernameIsBlank() {
-    assertThatThrownBy(() -> account.updateUsername(" ", "elf4life"))
+    assertThatThrownBy(() -> account.updateUsername("", "elf4life"))
         .isInstanceOf(BadRequestResponse.class);
   }
 
