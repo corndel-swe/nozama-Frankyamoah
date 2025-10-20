@@ -16,6 +16,11 @@ public class D2E1 {
 
     // TODO: add the GET /ping endpoint
 
+    app.get("/ping", ctx -> {
+      ctx.result("pong");
+    });
+
     return app;
   }
+
 }

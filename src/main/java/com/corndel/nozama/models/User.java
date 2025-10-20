@@ -7,21 +7,39 @@ public class User {
   private String lastName;
   private String email;
   private String avatar;
+  private String password;
 
-  public User(Integer id, String username, String firstName, String lastName, String email, String avatar) {
+  public User(Integer id, String username, String firstName, String lastName, String email, String avatar, String password) {
     this.id = id;
     this.username = username;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.avatar = avatar;
+    this.password = password;
+  }
+
+  public User(String username, String firstName, String lastName, String email, String avatar, String password) {
+    this.username = username;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.avatar = avatar;
+    this.password = password;
+  }
+
+  public User() {
   }
 
   public Integer getId() {
     return id;
   }
 
-  public String getUsername() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
     return username;
   }
 
@@ -60,4 +78,25 @@ public class User {
   public void setAvatar(String avatar) {
     this.avatar = avatar;
   }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

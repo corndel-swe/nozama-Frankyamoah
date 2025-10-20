@@ -19,6 +19,12 @@ public class D3E2Tests {
   }
 
   @Test
+  public void accountThrowsBadRequestIfUsernameIsBlank() {
+    assertThatThrownBy(() -> account.updateUsername("", "elf4life"))
+        .isInstanceOf(BadRequestResponse.class);
+  }
+
+  @Test
   public void accountThrowsUnauthorizedIfPasswordIsNull() {
     assertThatThrownBy(() -> account.updateUsername("aragorn", null))
         .isInstanceOf(UnauthorizedResponse.class);

@@ -1,0 +1,85 @@
+package com.corndel.nozama.repositories;
+
+import com.corndel.nozama.DB;
+import com.corndel.nozama.models.Product;
+import io.javalin.util.ReflectionUtilKt;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductRepository {
+    public static List<Product> findAll() throws SQLException {
+        var query = "SELECT id, name, description, price, stockQuantity, imageURL FROM Products";
+        try(
+                var connection = DB.getConnection();
+                var statement = connection.createStatement();
+                var resultSet = statement.executeQuery(query);
+                ) {
+            var Products = new ArrayList<Product>();
+            while (resultSet.next()) {
+                var id = resultSet.getInt("id");
+                var name = resultSet.getString("name");
+                var description = resultSet.getString("description");
+                var price = resultSet.getInt("price");
+                var stockQuantity = resultSet.getInt("stockQuantity");
+                var imageUrl = resultSet.getString("imageURL");
+                Products.add(new Product(id, name, description, price, stockQuantity, imageUrl));
+            }
+            return Products;
+        }
+    }
+
+    public static Product findByID(int id) throws SQLException {
+        String query = "SELECT * FROM Products WHERE id = ?";
+
+        try (
+                Connection connection = DB.getConnection();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            try (ResultSet resulSet = statement.executeQuery()) {
+                if (!resulSet.next()) {
+                    return null;
+                }
+                String name = resulSet.getString("name");
+                String description = resulSet.getString("description");
+                int price = resulSet.getInt("price");
+                int stockQuantity = resulSet.getInt("stockQuantity");
+                String imageURL = resulSet.getString("imageURL");
+                return new Product(id, name, description, price, stockQuantity, imageURL);
+            }
+        }
+    }
+
+    public static Product createProduct(String name, String description, int price, int stockQuantity, String imageURL) throws SQLException {
+        String query = "INSERT into Products(name, description, price, stockQuantity, imageURL) VALUES (?, ?, ?, ?, ?)";
+        try (
+                Connection connection = DB.getConnection();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, name);
+            statement.setString(2, description);
+            statement.setInt(3, price);
+            statement.setInt(4, stockQuantity);
+            statement.setString(5, imageURL);
+            statement.executeUpdate(); // Executes the insert into the database
+
+            // Lastly get the generated id from the database
+            ResultSet genID = statement.getGeneratedKeys();
+            int id = 0;
+            if (genID.next()) {
+                id = genID.getInt(1);
+            }
+            return new Product(id, name, description, price, stockQuantity, imageURL);
+        }
+    }
+    public static void main(String[] args) {
+
+    }
+
+
+}
+
+
