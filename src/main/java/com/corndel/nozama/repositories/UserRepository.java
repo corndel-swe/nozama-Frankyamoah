@@ -105,40 +105,27 @@ public class UserRepository {
     }
 
     public static void main(String[] args) throws SQLException {
-        User newUser = new User("jackP", "J", "Potts",
-                "jpotts@gmail.com", "https//kmart","password");
-
-        createUser(newUser);
-
-        System.out.println(newUser);
-
-      var username = resultSet.getString("username");
-      var firstName = resultSet.getString("firstName");
-      var lastName = resultSet.getString("lastName");
-      var email = resultSet.getString("email");
-      var avatar = resultSet.getString("avatar");
-      var foundUser = (new User(id, username, firstName, lastName, email, avatar));
 
 //        System.out.println(findAll());
 
     }
+
+    public static void deleteById(int id) throws SQLException {
+        var query = "DELETE FROM users WHERE id = ?";
+
+        try (
+                var connection = DB.getConnection();
+                var statement = connection.prepareStatement(query)
+        ) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+        }
+    }
   }
-  public static void deleteById(int id) throws SQLException {
-      var query = "DELETE FROM users WHERE id = ?";
 
-      try (
-              var connection = DB.getConnection();
-              var statement = connection.prepareStatement(query)
-      ) {
-          statement.setInt(1, id);
-          statement.executeUpdate();
 
-      }
-  }
 
-  public static void main(String[] args) {
 
-  }
-}
-}
+
 
